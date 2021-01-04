@@ -4,18 +4,39 @@
 #
 Name     : inih
 Version  : 52
-Release  : 1
+Release  : 2
 URL      : https://github.com/benhoyt/inih/archive/r52/inih-52.tar.gz
 Source0  : https://github.com/benhoyt/inih/archive/r52/inih-52.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-3-Clause
+Requires: inih-lib = %{version}-%{release}
 Requires: inih-license = %{version}-%{release}
 BuildRequires : buildreq-meson
 
 %description
 # inih (INI Not Invented Here)
 [![TravisCI Build](https://travis-ci.org/benhoyt/inih.svg)](https://travis-ci.org/benhoyt/inih)
+
+%package dev
+Summary: dev components for the inih package.
+Group: Development
+Requires: inih-lib = %{version}-%{release}
+Provides: inih-devel = %{version}-%{release}
+Requires: inih = %{version}-%{release}
+
+%description dev
+dev components for the inih package.
+
+
+%package lib
+Summary: lib components for the inih package.
+Group: Libraries
+Requires: inih-license = %{version}-%{release}
+
+%description lib
+lib components for the inih package.
+
 
 %package license
 Summary: license components for the inih package.
@@ -34,7 +55,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1609791341
+export SOURCE_DATE_EPOCH=1609791620
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -43,7 +64,9 @@ export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
 export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
-CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain   builddir
+CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain -Ddefault_library=shared \
+-Ddistro_install=true \
+-Dwith_INIReader=true  builddir
 ninja -v -C builddir
 
 %install
@@ -53,6 +76,20 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files
 %defattr(-,root,root,-)
+
+%files dev
+%defattr(-,root,root,-)
+/usr/include/INIReader.h
+/usr/include/ini.h
+/usr/lib64/libINIReader.so
+/usr/lib64/libinih.so
+/usr/lib64/pkgconfig/INIReader.pc
+/usr/lib64/pkgconfig/inih.pc
+
+%files lib
+%defattr(-,root,root,-)
+/usr/lib64/libINIReader.so.0
+/usr/lib64/libinih.so.0
 
 %files license
 %defattr(0644,root,root,0755)
