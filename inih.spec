@@ -4,7 +4,7 @@
 #
 Name     : inih
 Version  : 52
-Release  : 2
+Release  : 3
 URL      : https://github.com/benhoyt/inih/archive/r52/inih-52.tar.gz
 Source0  : https://github.com/benhoyt/inih/archive/r52/inih-52.tar.gz
 Summary  : No detailed summary available
@@ -13,6 +13,7 @@ License  : BSD-3-Clause
 Requires: inih-lib = %{version}-%{release}
 Requires: inih-license = %{version}-%{release}
 BuildRequires : buildreq-meson
+Patch1: 0001-Set-project-version.patch
 
 %description
 # inih (INI Not Invented Here)
@@ -49,13 +50,17 @@ license components for the inih package.
 %prep
 %setup -q -n inih-r52
 cd %{_builddir}/inih-r52
+%patch1 -p1
 
 %build
+## build_prepend content
+sed -i 's/@PKGVER@/%{version}/' meson.build
+## build_prepend end
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1609791620
+export SOURCE_DATE_EPOCH=1609792683
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib

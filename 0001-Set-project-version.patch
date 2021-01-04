@@ -1,0 +1,27 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Patrick McCarty <patrick.mccarty@intel.com>
+Date: Mon, 4 Jan 2021 20:34:13 +0000
+Subject: [PATCH] Set project version
+
+This fixes the pkgconfig `Version` field as well, when combined with the
+`sed` substitution added to the spec file. See `build_prepend`.
+
+(Adapted from a similar change to the Alpine Linux package.)
+
+Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
+---
+ meson.build | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/meson.build b/meson.build
+index 4602326..8ba0eae 100644
+--- a/meson.build
++++ b/meson.build
+@@ -2,6 +2,7 @@ project('inih',
+     ['c','cpp'],
+     default_options : ['default_library=static'],
+     license : 'BSD-3-Clause',
++    version : '@PKGVER@',
+ )
+ 
+ #### options ####
