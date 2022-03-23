@@ -14,12 +14,12 @@ Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/meson.build b/meson.build
-index 4602326..8ba0eae 100644
+index 4dc46af..ac83679 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -2,6 +2,7 @@ project('inih',
-     ['c','cpp'],
-     default_options : ['default_library=static'],
+@@ -1,6 +1,7 @@
+ project('inih',
+     ['c'],
      license : 'BSD-3-Clause',
 +    version : '@PKGVER@',
  )
