@@ -1,5 +1,5 @@
 PKG_NAME := inih
-URL = https://github.com/benhoyt/inih/archive/r55/inih-55.tar.gz
+URL = https://github.com/benhoyt/inih/archive/r56/inih-56.tar.gz
 ARCHIVES = 
 
 include ../common/Makefile.common
